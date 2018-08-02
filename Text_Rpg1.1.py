@@ -60,8 +60,21 @@ def title_screen():
     print('#########################')
     title_screen_selections()
 
+ironsword = False
+ironarmor = False
+coppersword = False
+copperarmor = False
+steelsword = False
+steelarmor = False
+#save/load files
 def loadgame():
     try:
+        global ironsword
+        global ironarmor
+        global coppersword
+        global copperarmor
+        global steelsword
+        global steelarmor 
         print('loading game...')
         data={}
         with open('savegame.txt') as infile:
@@ -98,6 +111,33 @@ def loadgame():
         zonemap['d2'][SOLVED] = data['zonemapsave'][0]['d2']
         zonemap['d3'][SOLVED] = data['zonemapsave'][0]['d3']
         zonemap['d4'][SOLVED] = data['zonemapsave'][0]['d4']
+        if 'warrior' in myPlayer.job:
+            myPlayer.hp = 9
+            myPlayer.mp = 2
+            myPlayer.atk = 3
+            myPlayer.mpatk = 4
+        if 'mage' in myPlayer.job:
+            myPlayer.hp = 8
+            myPlayer.mp = 4
+            myPlayer.atk = 3
+            myPlayer.mpatk = 4
+        if 'priest' in myPlayer.job:
+            myPlayer.hp = 7
+            myPlayer.mp = 6
+            myPlayer.atk = 3
+            myPlayer.mpatk = 5
+        if ironarmor == True:
+            myPlayer.hp = myPlayer.hp + 1
+        if copperarmor == True:
+            myPlayer.hp = myPlayer.hp + 2
+        if steelarmor == True:
+            myPlayer.hp = myPlayer.hp + 3
+        if ironsword == True:
+            myPlayer.atk = myPlayer.atk + 1
+        if coppersword == True:
+            myPlayer.atk = myPlayer.atk + 2
+        if steelsword == True:
+            myPlayer.atk = myPlayer.atk + 3
     except:
         print('No save file found.')
         title_screen()
@@ -162,13 +202,6 @@ def help_menu():
     title_screen_selections()
 
  ##### Gameplay Programming #####
-
-ironsword = False
-ironarmor = False
-coppersword = False
-copperarmor = False
-steelsword = False
-steelarmor = False
 
 #shop
 def shop(): 
@@ -264,7 +297,7 @@ solved_places = {'a1': False,'a2': False,'a3': False,'a4': False,
                      'd1': False, 'd2': False,'d3': False,'d4': False,}
 #zone info
 zonemap = {
-    'a1':{ZONENAME: 'Town Market', DESCRIPTION: 'you can buy stuff here.', EXAMINATION: '', SOLVED: False, UP: 'a1', DOWN: 'b1', LEFT: 'a1',  RIGHT: 'a2'},
+    'a1':{ZONENAME: 'Town Market', DESCRIPTION: 'you can buy stuff here.', EXAMINATION: 'Welcome to the shop.', SOLVED: False, UP: 'a1', DOWN: 'b1', LEFT: 'a1',  RIGHT: 'a2'},
     'a2':{ZONENAME: 'Town Entrance', DESCRIPTION: 'People Live and Work here.', EXAMINATION: 'you see a building.', SOLVED: False, UP: 'a2', DOWN: 'b2', LEFT: 'a1', RIGHT: 'a3'},
     'a3':{ZONENAME: 'Town Park', DESCRIPTION: 'People relax here.', EXAMINATION: 'You find 25 money in the leaves.', SOLVED: False, UP: 'a3', DOWN: 'b3', LEFT: 'a2', RIGHT: 'a4'},
     'a4':{ZONENAME: 'Town Hall', DESCRIPTION: 'The Mayor Lives here.', EXAMINATION: 'Private Property...', SOLVED: False, UP: 'a4', DOWN: 'b4', LEFT: 'a3', RIGHT: 'a4'},
